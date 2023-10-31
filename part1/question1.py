@@ -20,16 +20,26 @@ def get_city_temperature(city):
       return 17
    if city == "San Francisco":
       return 16
+   if city == "New York":
+      return 14
 
 def get_city_weather(city):
 
-  sky_condition = None
+   sky_condition = None
 
-  if city == "Sao Paulo":
-     sky_condition = "cloudy"
-  elif city == "New York":
-     sky_condition = "rainy"
+   if city == "Sao Paulo":
+      sky_condition = "cloudy"
+   elif city == "New York":
+      sky_condition = "rainy"
 
-  temperature = get_city_temperature(city)
+   temperature = get_city_temperature(city)
 
-  return str(temperature) + " degrees and " + sky_condition
+   if sky_condition is not None:
+      return str(temperature) + " degrees and " + sky_condition
+   else:
+      return str(temperature) + " degrees and sunny"
+
+# if condition is null then return the firts test, else but you add New york (14) in the def
+# return str(temperature) + " degrees and " + sky_condition
+#print(get_city_weather("Quito"))
+#print(get_city_weather("New York"))
