@@ -1,4 +1,4 @@
-from question3 import make_oven, alchemy_combine, MagicalOven
+from question3 import make_oven, alchemy_combine
 
 def test_alchemy_combine():
 

@@ -27,34 +27,35 @@
 
 # This function should return an oven instance!
 
-class MagicalOven:
-  def __init__(self):
-    self.ingredients = []
-    self.temperature = 0
+class Oven:
+    def __init__(self):
+        self.ingredients = []
+        self.temperature = 0
 
-  def add(self, item):
-    self.ingredients.append(item)
+    def add(self, item):
+        if self.temperature == 0:
+            self.ingredients.append(item)
 
-  def freeze(self):
-    self.temperature = -100
+    def freeze(self):
+        self.temperature = -100
 
-  def boil(self):
-    self.temperature = 5000
+    def boil(self):
+        self.temperature = 5000
 
-  def wait(self):
-    pass
+    def wait(self):
+        pass
 
-  def get_output(self):
-    if self.temperature == -100:
-      if "water" in self.ingredients and "air" in self.ingredients:
-        return "snow"
-    elif self.temperature == 5000:
-      if "lead" in self.ingredients and "mercury" in self.ingredients:
-        return "gold"
-    return "desconocido"
+    def get_output(self):
+        if self.temperature == -100 and set(self.ingredients) == {"water", "air"}:
+            return "snow"
+        elif self.temperature == 5000 and set(self.ingredients) == {"lead", "mercury"}:
+            return "gold"
+        elif self.temperature == 150 and set(self.ingredients) == {"cheese", "dough", "tomato"}:
+            return "pizza"
+        return "unknown"
 
 def make_oven():
-  return MagicalOven()
+    return Oven()
 
 def alchemy_combine(oven, ingredients, temperature):
   
