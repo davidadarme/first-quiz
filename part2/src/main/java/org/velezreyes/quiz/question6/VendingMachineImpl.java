@@ -1,67 +1,63 @@
 package org.velezreyes.quiz.question6;
 
-import java.util.Map;
-import java.util.HashMap;
-
 public class VendingMachineImpl implements VendingMachine {
-    private int balance;
+    private int quarters = 0;
 
-    public VendingMachineImpl() {
-        this.balance = 0;
+    // Implementación del método para insertar un cuarto
+    @Override
+    public void insertQuarter() {
+        quarters++;
     }
 
+    // Implementación del método para presionar un botón y obtener una bebida
+    @Override
+    public Drink pressButton(String name) throws NotEnoughMoneyException, UnknownDrinkException {
+        if ("ScottCola".equals(name) && quarters < 3) {
+            throw new NotEnoughMoneyException();
+        } else if ("KarenTea".equals(name) && quarters < 4) {
+            throw new NotEnoughMoneyException();
+        }
+
+        // Resetear los cuartos después de comprar una bebida
+        quarters = 0;
+
+        if ("ScottCola".equals(name)) {
+            return new ScottCola();
+        } else if ("KarenTea".equals(name)) {
+            return new KarenTea();
+        } else {
+            throw new UnknownDrinkException();
+        }
+    }
+
+    // Implementación del método para crear una instancia de VendingMachine
     public static VendingMachine getInstance() {
         return new VendingMachineImpl();
     }
 
-    @Override
-    public void insertCoin(int coin) {
-        if (coin == 1 || coin == 5) {
-            balance += coin;
+    // Clase interna que representa la bebida ScottCola
+    private class ScottCola implements Drink {
+        @Override
+        public String getName() {
+            return "ScottCola";
+        }
+
+        @Override
+        public boolean isFizzy() {
+            return true;
         }
     }
 
-    @Override
-    public int getBalance() {
-        return balance;
-    }
-
-    @Override
-    public void selectItem(String item) {
-        Map<String, Integer> itemPrices = new HashMap<>();
-        itemPrices.put("item1", 10);
-        itemPrices.put("item2", 5);
-
-        if (itemPrices.containsKey(item) && balance >= itemPrices.get(item)) {
-            balance -= itemPrices.get(item);
+    // Clase interna que representa la bebida KarenTea
+    private class KarenTea implements Drink {
+        @Override
+        public String getName() {
+            return "KarenTea";
         }
-    }
 
-    @Override
-    public Map<String, Integer> getItems() {
-        Map<String, Integer> itemPrices = new HashMap<>();
-        itemPrices.put("item1", 10);
-        itemPrices.put("item2", 5);
-
-        return itemPrices;
-    }
-
-    @Override
-    public Drink pressButton(String name) throws NotEnoughMoneyException, UnknownDrinkException {
-        // Implement this method according to your business logic.
-        // Check the user's balance, handle NotEnoughMoneyException, and return a Drink.
-        // You may need to add a Drink class and create a Drink object to return.
-        // Handle UnknownDrinkException if necessary.
-        // Remove the throw statement.
-        
-        throw new UnsupportedOperationException("Unimplemented method 'pressButton'");
-    }
-
-    @Override
-    public void insertQuarter() {
-        // Implement this method to allow users to insert a quarter.
-        // Update the balance accordingly.
-        // Remove the throw statement.
-        balance += 25;
+        @Override
+        public boolean isFizzy() {
+            return false;
+        }
     }
 }

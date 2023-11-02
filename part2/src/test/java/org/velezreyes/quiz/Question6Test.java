@@ -56,27 +56,30 @@ public class Question6Test {
 
     Exception exception = assertThrows(NotEnoughMoneyException.class, () -> {
       vm.pressButton("ScottCola");
-    });
+  });
+  
   }
 
   @Test
   public void canGetKarenTeaForOneDollar() throws Exception {
-    VendingMachine vm = VendingMachineImpl.getInstance();
+      VendingMachine vm = VendingMachineImpl.getInstance();
 
-    vm.insertQuarter();
-    vm.insertQuarter();
-    vm.insertQuarter();
+      vm.insertQuarter();
+      vm.insertQuarter();
+      vm.insertQuarter();
 
-    // Test that KarenTea costs more than 75 cents.
-    assertThrows(NotEnoughMoneyException.class, () -> {
-      vm.pressButton("KarenTea");
-    });
+      // Use the 'exception' variable for further assertions or logging if needed.
+      Exception exception = assertThrows(NotEnoughMoneyException.class, () -> {
+          vm.pressButton("KarenTea");
+      });
 
-    vm.insertQuarter();
+      // Add additional assertions or logging if required.
+      
+      vm.insertQuarter();
 
-    Drink drink = vm.pressButton("KarenTea");
-    assertFalse(drink.isFizzy());
-    assertEquals(drink.getName(), "KarenTea");
+      Drink drink = vm.pressButton("KarenTea");
+      assertFalse(drink.isFizzy());
+      assertEquals(drink.getName(), "KarenTea");
   }
 
   @Test
