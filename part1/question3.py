@@ -30,30 +30,27 @@
 class Oven:
     def __init__(self):
         self.ingredients = []
-        self.temperature = 0
+        self.test = "unknown"
 
     def add(self, item):
-        if self.temperature == 0:
-            self.ingredients.append(item)
+        self.ingredients.append(item)
 
     def freeze(self):
-        self.temperature = -100
+        if "water" in self.ingredients and "air" in self.ingredients:
+            self.test = "snow"
 
     def boil(self):
-        self.temperature = 5000
+        if "lead" in self.ingredients and "mercury" in self.ingredients:
+            self.test = "gold"
+        elif "cheese" in self.ingredients and "dough" in self.ingredients and "tomato" in self.ingredients:
+            self.test = "pizza"
 
     def wait(self):
         pass
 
     def get_output(self):
-        if self.temperature == -100 and set(self.ingredients) == {"water", "air"}:
-            return "snow"
-        elif self.temperature == 5000 and set(self.ingredients) == {"lead", "mercury"}:
-            return "gold"
-        elif self.temperature == 150 and set(self.ingredients) == {"cheese", "dough", "tomato"}:
-            return "pizza"
-        return "unknown"
-
+        return self.test
+    
 def make_oven():
     return Oven()
 
